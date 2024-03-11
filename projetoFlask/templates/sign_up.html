@@ -1,0 +1,49 @@
+{% extends "base.html" %} 
+{% block title %}Cadastre-se{% endblock %} 
+{% block content %}
+<form method="POST">
+  <h3 align="center">Cadastre-se</h3>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input
+      type="email"
+      class="form-control"
+      id="email"
+      name="email"
+      placeholder="Insira seu email"
+    />
+  </div>
+  <div class="form-group">
+    <label for="name">Nome</label>
+    <input
+      type="text"
+      class="form-control"
+      id="name"
+      name="name"
+      placeholder="Insira seu nome"
+    />
+  </div>
+  <div class="form-group">
+    <label for="password1">Senha</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password1"
+      name="password1"
+      placeholder="Insira sua senha"
+    />
+  </div>
+  <div class="form-group">
+    <label for="password2">Senha (Confirme)</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password2"
+      name="password2"
+      placeholder="Confirme sua senha"
+    />
+  </div>
+  <br />
+  <button type="submit" class="btn btn-primary">Salvar</button>
+</form>
+{% endblock %}

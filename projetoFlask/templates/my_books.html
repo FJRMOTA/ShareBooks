@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Meus Livros{% endblock %}
+{% block content%}
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td,
+    th {
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+
+<h1 align="center">Meus Livros</h1>
+<a href="/new-book" class="pull-right btn btn-rounded btn-xs btn-stroke btn-info waves-effect mb-2">Novo livro</a>
+<br>
+{% if user.books %}
+<table class="text-center" id="books">
+    <tr>
+        <th>Título</th>
+        <th>Autor</th>
+        <th>Categoria</th>
+        <th>Ano de Lançamento</th>
+        <th>Emprestado</th>
+        <th>Opções</th>
+    </tr>
+    {% for book in user.books %}
+    <tr>
+        <td>{{ book.title }}</td>
+        <td>{{ book.author }}</td>
+        <td>{{ book.category }}</td>
+        <td>{{ book.release_year }}</td>
+        <td>
+            {% if book.disponible == false%}
+                Sim
+            {% else %}
+                Não
+            {% endif %}
+        </td>
+        <td>
+            <button type="button" onClick="deleteBook({{ book.id }})">
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </button>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<br>
+<div class="alert alert-danger mt-4">
+    <i class="fa fa-exclamation-triangle"></i> Nenhum registro foi encontrado!
+</div>
+{% endif %}
+{% endblock %}

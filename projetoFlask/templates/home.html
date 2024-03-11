@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Menu{% endblock %}
+{% block content%}
+<style>
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  td,
+  th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+
+  .gallery img {
+    text-align: center;
+    height: 250px;
+    width: 200px;
+  } 
+</style>
+
+<h1 align="center">Livros Disponíveis</h1>
+<br>
+{% if books %}
+<div class="col-md-12">
+  <div class="row">
+    {% for book in books %}
+    <div class="col-md-3 gallery">
+      <div class="image-holder text-center mb-5">
+        <a href="#">
+          <img src="{{book.url_image}}">
+        </a>
+        <div class="desc">
+          <span>Título: <b>{{ book.title }}</b></span><br>
+          <span>Autor: <b>{{ book.author }}</b></span><br>
+          <span>Categoria: <b>{{ book.category }}</b></span><br>
+          <span>Ano de Lançamento: <b>{{ book.release_year }}</b></span>
+          <br>
+          {% if book.user_id != user.id %} 
+            <button class="btn btn-rounded btn-xs btn-stroke btn-info" type="button" onClick="shareBook({{ book.id }}, {{book.user_id}})">
+              <span aria-hidden="true">Solicitar</span>
+            </button>
+          {% else %}
+            <button class="btn btn-rounded btn-xs btn-stroke btn-info disabled" type="button" onClick="shareBook({{ book.id }}, {{book.user_id}})">
+              <span aria-hidden="true">Solicitar</span>
+            </button>         
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% else %}
+<br>
+<div class="alert alert-danger mt-4">
+  <i class="fa fa-exclamation-triangle"></i> Nenhum registro foi encontrado!
+</div>
+{% endif %}
+{% endblock %}

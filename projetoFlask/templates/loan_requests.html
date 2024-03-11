@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}Solicitações{% endblock %}
+{% block content%}
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td,
+    th {
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+
+<h1 align="center">Solicitações Enviadas</h1>
+<br>
+{% if loansResponse %}
+<table class="text-center" id="books">
+    <tr>
+        <th>Título</th>
+        <th>Autor</th>
+        <th>Categoria</th>
+        <th>Ano de Lançamento</th>
+        <th>Status Solicitação</th>
+    </tr>
+    {% for loan in loansResponse %}
+    <tr>
+        <td>{{ loan.book.title }}</td>
+        <td>{{ loan.book.author }}</td>
+        <td>{{ loan.book.category }}</td>
+        <td>{{ loan.book.release_year }}</td>
+        <td>
+            {% if loan.status == 1%}
+                Pendente 
+            {% elif loan.status == 2 %}
+                Aceita
+            {% else %}
+                Recusada
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<div class="alert alert-danger mt-4">
+    <i class="fa fa-exclamation-triangle"></i> Nenhum registro foi encontrado!
+</div>
+{% endif %}
+<br>
+<h1 align="center">Solicitações</h1>
+<br>
+{% if loansRequests %}
+<table class="text-center" id="books">
+    <tr>
+        <th>Título</th>
+        <th>Autor</th>
+        <th>Categoria</th>
+        <th>Ano de Lançamento</th>
+        <th>Opções</th>
+    </tr>
+    {% for loan in loansRequests %}
+    <tr>
+        <td>{{ loan.book.title }}</td>
+        <td>{{ loan.book.author }}</td>
+        <td>{{ loan.book.category }}</td>
+        <td>{{ loan.book.release_year }}</td>
+        <td>
+            <button type="button" class="rounded" onClick="acceptRequest({{ loan.id }}, {{loan.book.id }})" style="text-align: center;">
+                <i class="fas fa-check" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="rounded" onClick="refuseRequest({{ loan.id }})" style="text-align: center;">
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </button>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<div class="alert alert-danger mt-4">
+    <i class="fa fa-exclamation-triangle"></i> Nenhum registro foi encontrado!
+</div>
+{% endif %}
+{% endblock %}
